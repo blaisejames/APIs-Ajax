@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <title>Pokemon</title>
+    <script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function addSprites(sprite_count) {
+            for (i = 1; i <= sprite_count; i++) {
+                $("main").append("<div class='spritebox'><img src='https://pokeapi.co/media/sprites/pokemon/" + i +".png'></div>");
+            }
+        }
+        $(document).ready(function() {
+            addSprites(151);
+        });
+    </script>
+</head>
+<body>
+    <main>
+    </main>
+</body>
+</html>
