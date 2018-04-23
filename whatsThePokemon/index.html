@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <title>What's The Pokemon?</title>
+    <script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function addSprites(num) {
+            for (i = 1; i <= num; i++) {
+                $(".sprites").append("<div class='spritebox'><img id='" + i + "' src='https://pokeapi.co/media/sprites/pokemon/" + i +".png'></div>");
+            };
+        };
+        $(document).ready(function() {
+            addSprites(151);
+            $('.spritebox img').click(function() {
+                $.get(`https://pokeapi.co/api/v2/pokemon/${this.id}`, function(res) {
+                    var html_str = "";
+                    html_str = "<h3>" + res.name + "</h3>";
+                    html_str += "<img src=" + res.sprites.front_default + ">";
+                    html_str += "<h4>Types</h4><ul>";
+                    for(var i = 0; i < res.types.length; i++) {
+                        html_str += "<li>" + res.types[i].type.name + "</li>";
+                    }
+                    html_str += "</ul>"
+                    html_str += "<h4>Height</h4><ul>";
+                    html_str += "<li>" + res.height + "</li></ul>";
+                    html_str += "<h4>Weight</h4><ul>";
+                    html_str += "<li>" + res.weight + "</li></ul>";
+                    $(".dossier").html(html_str);
+                }, "json");
+            });
+        });
+    </script>
+</head>
+<body>
+    <main>
+        <div class='sprites'></div>
+        <div class='dossier'></div>
+    </main>
+</body>
+</html>
