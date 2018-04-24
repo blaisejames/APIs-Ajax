@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <title>Weather App</title>
+    <script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(event) {
+                event.preventDefault();
+                var url = "";
+                url = "http://api.openweathermap.org/data/2.5/weather?q=";
+                url += $(this).find('[name=city]').val();
+                url += "&units=imperial&appid=7277e7531260c966d830ed196314c6aa";
+                $.get(url, function(res) {
+                    $('section').html(`<h3>${res.name}, ${res.sys.country}</h3><h2>${Math.round(res.main.temp)}&deg;F</h2>`);  
+                }, 'json');
+                $('form')[0].reset();
+                return false;
+            });  
+        });
+    </script>
+</head>
+<body>
+    <main>
+        <form>
+            <h1>Weather or Not!</h1>
+            Enter city<input type='text' name='city'>
+            <input type='submit' value='Search Weather'> 
+        </form>
+        <section></section>
+    </main>
+</body>
+</html>
